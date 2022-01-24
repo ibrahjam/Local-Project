@@ -16,17 +16,22 @@ function getBooksBorrowedCount(books) {
   });
   return borrowed.length;
 }
+// Helper function
+function Helper(books) {
+  let result = books.sort((countA, countB) => (countA.count < countB.count ? 1: -1)).slice(0, 5);
+  return result; 
+}
 
 function getMostCommonGenres(books) {
-  const genres = books.reduce((acc, book) => {
-    if (!acc[book.genre]) {
-      acc[book.genre] = 1;
-    } else {
-      acc[book.genre]++;
+  const commonGenres = [];
+  for (let book of books) {
+    const genre = commonGenres.find((currentGenre) => currentGenre.name === book.genre);
+    if (genre) { genre.count++; 
+    } else { commonGenres.push({name: book.genre, count: 1});
     }
-
-    return acc;
-  }, {});
+  }
+  return Helper(commonGenres);
+}
 
   let result = Object.keys(genres).map((genre) => {
     const obj = { name: genre, count: genres[genre] };

@@ -43,7 +43,8 @@ function getBooksPossessedByAccount(account, books, authors) {
   });
   return result;
 }
-
+// Helper function
+// Returns author object
 function getAuthor(book, authors) {
   const author = authors.find((author) => author.id === book.authorId);
   return author;
